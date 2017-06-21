@@ -376,7 +376,6 @@ func (c *cmdable) Migrate(host, port, key string, db int64, timeout time.Duratio
 		db,
 		formatMs(timeout),
 	)
-	cmd.setReadTimeout(readTimeout(timeout))
 	c.process(cmd)
 	return cmd
 }
@@ -936,7 +935,6 @@ func (c *cmdable) BLPop(timeout time.Duration, keys ...string) *StringSliceCmd {
 	}
 	args[len(args)-1] = formatSec(timeout)
 	cmd := NewStringSliceCmd(args...)
-	cmd.setReadTimeout(readTimeout(timeout))
 	c.process(cmd)
 	return cmd
 }
@@ -949,7 +947,6 @@ func (c *cmdable) BRPop(timeout time.Duration, keys ...string) *StringSliceCmd {
 	}
 	args[len(keys)+1] = formatSec(timeout)
 	cmd := NewStringSliceCmd(args...)
-	cmd.setReadTimeout(readTimeout(timeout))
 	c.process(cmd)
 	return cmd
 }
@@ -961,7 +958,6 @@ func (c *cmdable) BRPopLPush(source, destination string, timeout time.Duration) 
 		destination,
 		formatSec(timeout),
 	)
-	cmd.setReadTimeout(readTimeout(timeout))
 	c.process(cmd)
 	return cmd
 }
